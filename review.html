@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Transaction</title>
     <link rel="stylesheet" href="review.css">
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwLhD92_kEtIsG3_rXrX9ZXdha9ND8wnfdsqk8AHpibEu4Igi3ALSUFxyUzcsxmR47-/exec'; // Replace with your script URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyNVNIXRxwXdkXbH10dgp2Ayry4LBng9YsdQJyhqL1y3i8y_HdZPPsGifxMR2R5Q2JB/exec'; // Replace with your script URL
         function showSpinner() {
-        const spinner = document.getElementById("spinner");
-    spinner.style.display = "flex"; // Show the spinner
-}
+            const spinner = document.getElementById("spinner");
+            spinner.style.display = "flex"; // Show the spinner
+        }
 
-function hideSpinner() {
-    const spinner = document.getElementById("spinner");
-    spinner.style.display = "none"; // Hide the spinner
-}
+        function hideSpinner() {
+            const spinner = document.getElementById("spinner");
+            spinner.style.display = "none"; // Hide the spinner
+        }
         // Function to get transaction data by transactionId
         function getTransaction() {
             showSpinner();
@@ -31,16 +32,16 @@ function hideSpinner() {
             fetch(`${scriptURL}?action=getTransaction&transactionId=${transactionId}&token=${token}`, {
                 method: "GET"
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    displayTransaction(data.transaction);
-                 hideSpinner();
-                } else {
-                    document.getElementById("demo").innerText = data.message;
-                }
-            })
-            .catch(error => console.error("Error:", error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        displayTransaction(data.transaction);
+                        hideSpinner();
+                    } else {
+                        document.getElementById("demo").innerText = data.message;
+                    }
+                })
+                .catch(error => console.error("Error:", error));
         }
 
         // Function to display transaction data
@@ -69,45 +70,47 @@ function hideSpinner() {
                     token
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    document.getElementById("demo").innerText  = "Transaction marked as reviewed!";
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById("demo").innerText = "Transaction marked as reviewed!";
 
-                } else {
-                    document.getElementById("demo").innerText = data.message;
+                    } else {
+                        document.getElementById("demo").innerText = data.message;
 
-                }
-                hideSpinner() ;
-            })
-            .catch(error => console.error("Error:", error));
+                    }
+                    hideSpinner();
+                })
+                .catch(error => console.error("Error:", error));
         }
 
         // Call the function to get transaction data on page load
         window.onload = getTransaction;
     </script>
 </head>
+
 <body>
     <div class="container">
         <h1>Review Transaction</h1>
         <div id="spinner" style="display: none;">
             <div class="loader"></div>
         </div>
-    <div>
-        <p id="demo"></p>
-        <p><strong>Date:</strong> <span id="date"></span></p>
-        <p><strong>Transaction ID:</strong> <span id="transactionId"></span></p>
-        <p><strong>Name:</strong> <span id="name"></span></p>
-        <p><strong>Description:</strong> <span id="description"></span></p>
-        <p><strong>Type:</strong> <span id="type"></span></p>
-        <p><strong>Amount:</strong> <span id="amount"></span> <b>Francs</b> </p>
-        <p><strong>Notes:</strong> <span id="notes"></span></p>
-    </div>
-    <button onclick="markAsReviewed()">Mark as Reviewed</button>
+        <div>
+            <p id="demo"></p>
+            <p><strong>Date:</strong> <span id="date"></span></p>
+            <p><strong>Transaction ID:</strong> <span id="transactionId"></span></p>
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>Description:</strong> <span id="description"></span></p>
+            <p><strong>Type:</strong> <span id="type"></span></p>
+            <p><strong>Amount:</strong> <span id="amount"></span> <b>Francs</b> </p>
+            <p><strong>Notes:</strong> <span id="notes"></span></p>
+        </div>
+        <button onclick="markAsReviewed()">Mark as Reviewed</button>
 
     </div>
     <footer>
         <p style="color: rgb(80, 79, 76);">&copy; Modson 2024</p>
     </footer>
 </body>
+
 </html>
